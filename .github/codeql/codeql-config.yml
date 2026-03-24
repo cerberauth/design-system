@@ -1,0 +1,14 @@
+name: CodeQL config
+
+# Scan all TypeScript source in the monorepo.
+# Exclude generated dist, node_modules, and Storybook static output.
+paths:
+  - packages/ui/src
+  - apps/storybook/.storybook
+  - apps/storybook/stories
+
+paths-ignore:
+  - "**/node_modules"
+  - "**/dist"
+  - "**/storybook-static"
+  - "**/.turbo"

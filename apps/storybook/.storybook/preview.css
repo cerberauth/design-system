@@ -1,0 +1,6 @@
+/* Import design tokens — includes Tailwind CSS + all custom tokens */
+@import "@cerberauth/tokens/css";
+
+/* Tell Tailwind to scan component and story files for class usage */
+@source "../../../packages/ui/src/**/*.{ts,tsx}";
+@source "../stories/**/*.{ts,tsx}";

@@ -1,0 +1,111 @@
+/**
+ * Semantic tokens — map primitives to intent.
+ * Components and consumers reference these tokens, never the primitives.
+ * The --token-* prefix ensures no collision with Tailwind's @theme variables.
+ */
+
+:root {
+  /* ─── Color: Primary brand ──────────────────────────────────────────────── */
+  /* Bright vivid blue — ≈ #3D8BFF, matching cerberauth.com brand */
+  --token-primary: var(--primitive-blue-500);
+  --token-primary-fg: var(--primitive-white);
+  --token-primary-container: var(--primitive-blue-600); /* darker blue — gradient end for CTAs */
+  --token-primary-fixed: var(--primitive-blue-fixed);   /* very light blue — input focus glow */
+
+  /* ─── Color: Secondary brand (amber) ────────────────────────────────────── */
+  /* Energetic amber accent — #964900 used for "Auth-Badge" and trust signals */
+  --token-secondary: var(--primitive-amber-700);
+  --token-secondary-fg: var(--primitive-white);
+  --token-secondary-fixed: var(--primitive-amber-100);    /* light badge background */
+  --token-secondary-fixed-fg: var(--primitive-amber-700); /* badge text on fixed */
+
+  /* ─── Color: Destructive ────────────────────────────────────────────────── */
+  --token-destructive: var(--primitive-red-600);
+  --token-destructive-fg: var(--primitive-white);
+
+  /* ─── Color: Accent (hover / subtle highlight) ──────────────────────────── */
+  --token-accent: var(--primitive-blue-50);
+  --token-accent-fg: var(--primitive-blue-900);
+
+  /* ─── Color: Surface hierarchy (the "No-Line" rule) ────────────────────── */
+  /* Depth via "Stacked Paper" tonal layering — no 1px borders allowed.       */
+  --token-surface: var(--primitive-neutral-50);               /* canvas — #fbf9f8 */
+  --token-surface-container-lowest: var(--primitive-white);   /* floating cards (glassmorphism base) */
+  --token-surface-container-low: var(--primitive-neutral-100); /* structural groupings — #f6f3f2 */
+  --token-surface-container: var(--primitive-neutral-200);    /* mid-level containers */
+  --token-surface-container-high: var(--primitive-neutral-300); /* secondary button bg */
+  --token-surface-container-highest: var(--primitive-neutral-400); /* critical interactive — #e4e2e1 */
+  --token-surface-dim: var(--primitive-neutral-500);           /* recessed (footers) */
+
+  /* ─── Color: On-surface (text / icon) ───────────────────────────────────── */
+  /* Never use 100% black — use on-surface (#1b1c1c) for a premium softer contrast */
+  --token-on-surface: var(--primitive-neutral-900);         /* #1b1c1c — primary text */
+  --token-on-surface-variant: var(--primitive-neutral-700); /* labels, secondary text */
+
+  /* ─── Color: Surface aliases (backwards compat) ─────────────────────────── */
+  --token-bg: var(--token-surface);
+  --token-fg: var(--token-on-surface);
+  --token-card: var(--token-surface-container-lowest);
+  --token-card-fg: var(--token-on-surface);
+  --token-popover: var(--token-surface-container-lowest);
+  --token-popover-fg: var(--token-on-surface);
+
+  /* ─── Color: Subtle (muted text / inactive) ─────────────────────────────── */
+  --token-muted: var(--primitive-neutral-100);
+  --token-muted-fg: var(--primitive-gray-500);
+
+  /* ─── Color: Utility ────────────────────────────────────────────────────── */
+  /* Ghost border fallback: outline-variant at 15% opacity — felt, not seen */
+  --token-outline-variant: var(--primitive-blue-gray-300); /* #c3c6d6 */
+  --token-border: var(--primitive-neutral-200);
+  --token-input: var(--primitive-neutral-100);
+  --token-ring: var(--primitive-blue-500);
+
+  /* ─── Spacing ───────────────────────────────────────────────────────────── */
+  --token-space-sm: var(--primitive-space-2);
+  --token-space-md: var(--primitive-space-4);
+  --token-space-lg: var(--primitive-space-8);
+  --token-space-xl: var(--primitive-space-16);
+
+  /* ─── Border Radius ─────────────────────────────────────────────────────── */
+  --token-radius-sm: var(--primitive-radius-sm);
+  --token-radius-md: var(--primitive-radius-md);
+  --token-radius-lg: var(--primitive-radius-lg);
+  --token-radius-xl: var(--primitive-radius-xl);
+  --token-radius-full: var(--primitive-radius-full);
+
+  /* ─── Typography: Font families ─────────────────────────────────────────── */
+  --token-font-sans: var(--primitive-font-sans);
+  --token-font-mono: var(--primitive-font-mono);
+
+  /* ─── Typography: Semantic roles ─────────────────────────────────────────── */
+  /* Display: hero statements — tight tracking (-0.02em) per spec */
+  --token-font-size-display-lg: var(--primitive-font-size-5xl);  /* 3rem */
+  --token-font-size-display-md: var(--primitive-font-size-4xl);  /* 2.25rem */
+
+  /* Headlines: major section headers with ample breathing room */
+  --token-font-size-headline-lg: var(--primitive-font-size-3xl); /* 2rem */
+
+  /* Body roles */
+  --token-font-size-title-lg: var(--primitive-font-size-xl);     /* 1.25rem — SemiBold */
+  --token-font-size-body-md: var(--primitive-font-size-base);    /* 1rem — Regular */
+  --token-font-size-label-md: var(--primitive-font-size-sm);     /* 0.875rem — on-surface-variant */
+
+  /* Utility aliases */
+  --token-font-size-sm: var(--primitive-font-size-sm);
+  --token-font-size-base: var(--primitive-font-size-base);
+  --token-font-size-lg: var(--primitive-font-size-lg);
+
+  /* ─── Typography: Letter spacing ─────────────────────────────────────────── */
+  --token-tracking-display: var(--primitive-tracking-tighter); /* -0.02em for Display */
+  --token-tracking-normal: var(--primitive-tracking-normal);
+
+  /* ─── Typography: Font weights ───────────────────────────────────────────── */
+  --token-font-weight-regular: var(--primitive-font-weight-regular);     /* 400 */
+  --token-font-weight-semibold: var(--primitive-font-weight-semibold);   /* 600 */
+  --token-font-weight-bold: var(--primitive-font-weight-bold);           /* 700 */
+
+  /* ─── Typography: Line heights ───────────────────────────────────────────── */
+  --token-line-height-tight: var(--primitive-line-height-tight);
+  --token-line-height-normal: var(--primitive-line-height-normal);
+}

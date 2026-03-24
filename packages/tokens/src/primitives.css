@@ -1,0 +1,136 @@
+/**
+ * Primitive tokens — raw scale values with no semantic meaning.
+ * These are the foundation: never reference these directly in components.
+ * Instead, use the semantic tokens defined in semantic.css.
+ */
+
+:root {
+  /* ─── Color: Blue ──────────────────────────────────────────────────────── */
+  --primitive-blue-50: oklch(0.970 0.017 257.42);
+  --primitive-blue-100: oklch(0.943 0.032 254.63);
+  --primitive-blue-200: oklch(0.895 0.063 249.84);
+  --primitive-blue-300: oklch(0.831 0.110 251.72);
+  --primitive-blue-400: oklch(0.707 0.165 254.62);
+  --primitive-blue-500: oklch(0.620 0.214 259.81);
+  --primitive-blue-600: oklch(0.546 0.245 262.88);
+  --primitive-blue-700: oklch(0.453 0.222 264.37);
+  --primitive-blue-800: oklch(0.384 0.176 264.70);
+  --primitive-blue-825: oklch(0.395 0.193 263.50); /* ≈ #0051c3, primary-container */
+  --primitive-blue-875: oklch(0.298 0.162 264.50); /* ≈ #003b93, primary brand */
+  --primitive-blue-900: oklch(0.312 0.131 264.53);
+  --primitive-blue-950: oklch(0.211 0.091 264.53);
+  --primitive-blue-fixed: oklch(0.905 0.040 264.00); /* very light blue, primary-fixed */
+
+  /* ─── Color: Gray ───────────────────────────────────────────────────────── */
+  --primitive-gray-50: oklch(0.985 0.001 286.38);
+  --primitive-gray-100: oklch(0.965 0.001 286.38);
+  --primitive-gray-200: oklch(0.928 0.003 286.38);
+  --primitive-gray-300: oklch(0.872 0.006 286.38);
+  --primitive-gray-400: oklch(0.709 0.010 286.38);
+  --primitive-gray-500: oklch(0.552 0.009 286.38);
+  --primitive-gray-600: oklch(0.437 0.008 286.38);
+  --primitive-gray-700: oklch(0.373 0.006 286.38);
+  --primitive-gray-800: oklch(0.263 0.004 286.38);
+  --primitive-gray-900: oklch(0.213 0.003 286.38);
+  --primitive-gray-950: oklch(0.145 0.003 286.38);
+
+  /* ─── Color: Neutral warm (surface hierarchy) ───────────────────────────── */
+  /* Warm-tinted neutrals used exclusively for surface layering (no-line rule) */
+  --primitive-neutral-50: oklch(0.983 0.003 72);   /* ≈ #fbf9f8 — surface canvas */
+  --primitive-neutral-100: oklch(0.965 0.004 72);  /* ≈ #f6f3f2 — surface-container-low */
+  --primitive-neutral-200: oklch(0.933 0.004 72);  /* surface-container */
+  --primitive-neutral-300: oklch(0.919 0.004 72);  /* surface-container-high */
+  --primitive-neutral-400: oklch(0.905 0.004 72);  /* ≈ #e4e2e1 — surface-container-highest */
+  --primitive-neutral-500: oklch(0.884 0.005 72);  /* surface-dim (recessed) */
+  --primitive-neutral-700: oklch(0.450 0.008 264); /* on-surface-variant (label text) */
+  --primitive-neutral-900: oklch(0.181 0.002 72);  /* ≈ #1b1c1c — on-surface */
+
+  /* ─── Color: Blue-gray (outline) ────────────────────────────────────────── */
+  --primitive-blue-gray-300: oklch(0.813 0.019 264); /* ≈ #c3c6d6 — outline-variant */
+
+  /* ─── Color: Amber / orange (secondary brand) ───────────────────────────── */
+  --primitive-amber-50: oklch(0.970 0.015 80);  /* very light amber */
+  --primitive-amber-100: oklch(0.930 0.035 75); /* secondary-fixed (badge background) */
+  --primitive-amber-700: oklch(0.481 0.134 48); /* ≈ #964900 — secondary brand */
+
+  /* ─── Color: Red ────────────────────────────────────────────────────────── */
+  --primitive-red-100: oklch(0.936 0.032 17.72);
+  --primitive-red-300: oklch(0.808 0.114 19.57);
+  --primitive-red-400: oklch(0.704 0.191 22.18);
+  --primitive-red-500: oklch(0.637 0.237 25.33);
+  --primitive-red-600: oklch(0.577 0.245 27.33);
+  --primitive-red-700: oklch(0.505 0.213 27.52);
+  --primitive-red-800: oklch(0.444 0.177 26.13);
+
+  /* ─── Color: Green ──────────────────────────────────────────────────────── */
+  --primitive-green-100: oklch(0.962 0.044 156.74);
+  --primitive-green-400: oklch(0.740 0.180 152.45);
+  --primitive-green-500: oklch(0.648 0.200 148.87);
+  --primitive-green-600: oklch(0.580 0.192 149.58);
+
+  /* ─── Color: White / Black ─────────────────────────────────────────────── */
+  --primitive-white: oklch(1 0 0);
+  --primitive-black: oklch(0 0 0);
+
+  /* ─── Spacing scale (4px base) ─────────────────────────────────────────── */
+  --primitive-space-px: 1px;
+  --primitive-space-0: 0rem;
+  --primitive-space-1: 0.25rem;
+  --primitive-space-2: 0.5rem;
+  --primitive-space-3: 0.75rem;
+  --primitive-space-4: 1rem;
+  --primitive-space-5: 1.25rem;
+  --primitive-space-6: 1.5rem;
+  --primitive-space-8: 2rem;
+  --primitive-space-10: 2.5rem;
+  --primitive-space-12: 3rem;
+  --primitive-space-16: 4rem;
+  --primitive-space-20: 5rem;
+  --primitive-space-24: 6rem;
+
+  /* ─── Border radius scale ──────────────────────────────────────────────── */
+  --primitive-radius-none: 0px;
+  --primitive-radius-sm: 0.25rem;
+  --primitive-radius-md: 0.375rem;
+  --primitive-radius-lg: 0.5rem;
+  --primitive-radius-xl: 0.75rem;
+  --primitive-radius-2xl: 1rem;
+  --primitive-radius-full: 9999px;
+
+  /* ─── Typography: Font families ────────────────────────────────────────── */
+  --primitive-font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --primitive-font-mono: ui-monospace, SFMono-Regular, "Cascadia Mono",
+    "Segoe UI Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+    monospace;
+
+  /* ─── Typography: Font sizes ───────────────────────────────────────────── */
+  --primitive-font-size-xs: 0.75rem;   /* 12px */
+  --primitive-font-size-sm: 0.875rem;  /* 14px — label-md */
+  --primitive-font-size-base: 1rem;    /* 16px — body-md */
+  --primitive-font-size-lg: 1.125rem;  /* 18px */
+  --primitive-font-size-xl: 1.25rem;   /* 20px — title-lg */
+  --primitive-font-size-2xl: 1.5rem;   /* 24px */
+  --primitive-font-size-3xl: 2rem;     /* 32px — headline-lg */
+  --primitive-font-size-4xl: 2.25rem;  /* 36px — display-md */
+  --primitive-font-size-5xl: 3rem;     /* 48px — display-lg */
+
+  /* ─── Typography: Line heights ─────────────────────────────────────────── */
+  --primitive-line-height-tight: 1.25;
+  --primitive-line-height-snug: 1.375;
+  --primitive-line-height-normal: 1.5;
+  --primitive-line-height-relaxed: 1.625;
+
+  /* ─── Typography: Letter spacing ───────────────────────────────────────── */
+  --primitive-tracking-tighter: -0.02em; /* Display headlines per spec */
+  --primitive-tracking-tight: -0.01em;
+  --primitive-tracking-normal: 0em;
+  --primitive-tracking-wide: 0.025em;
+
+  /* ─── Typography: Font weights ─────────────────────────────────────────── */
+  --primitive-font-weight-regular: 400;
+  --primitive-font-weight-medium: 500;
+  --primitive-font-weight-semibold: 600;
+  --primitive-font-weight-bold: 700;
+}

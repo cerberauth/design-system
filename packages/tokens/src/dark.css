@@ -1,0 +1,62 @@
+/**
+ * Dark mode overrides.
+ * Uses [data-theme="dark"] selector for framework-agnostic dark mode support.
+ * Works with Astro SSR (no JS required) and Next.js.
+ *
+ * Usage:
+ *   <html data-theme="dark">  ← all tokens switch automatically
+ */
+
+[data-theme="dark"] {
+  /* ─── Color: Primary brand ──────────────────────────────────────────────── */
+  --token-primary: var(--primitive-blue-500);
+  --token-primary-fg: var(--primitive-white);
+  --token-primary-container: var(--primitive-blue-700);
+  --token-primary-fixed: var(--primitive-blue-950);
+
+  /* ─── Color: Secondary brand ────────────────────────────────────────────── */
+  --token-secondary: var(--primitive-amber-100);
+  --token-secondary-fg: var(--primitive-amber-700);
+  --token-secondary-fixed: oklch(0.25 0.06 48);   /* dark amber surface for badges */
+  --token-secondary-fixed-fg: var(--primitive-amber-100);
+
+  /* ─── Color: Destructive ────────────────────────────────────────────────── */
+  --token-destructive: var(--primitive-red-500);
+  --token-destructive-fg: var(--primitive-white);
+
+  /* ─── Color: Accent ─────────────────────────────────────────────────────── */
+  --token-accent: var(--primitive-blue-950);
+  --token-accent-fg: var(--primitive-blue-200);
+
+  /* ─── Color: Surface hierarchy (dark) ───────────────────────────────────── */
+  /* Dark surfaces are tinted neutrals that invert the light layering model    */
+  --token-surface: oklch(0.145 0.002 264);                /* dark canvas */
+  --token-surface-container-lowest: oklch(0.120 0.002 264); /* deepest (under-surface) */
+  --token-surface-container-low: oklch(0.165 0.002 264);  /* structural groupings */
+  --token-surface-container: oklch(0.188 0.003 264);       /* mid-level containers */
+  --token-surface-container-high: oklch(0.215 0.003 264);  /* secondary button bg */
+  --token-surface-container-highest: oklch(0.255 0.004 264); /* critical interactive */
+  --token-surface-dim: oklch(0.118 0.002 264);             /* recessed (darkest) */
+
+  /* ─── Color: On-surface (dark) ─────────────────────────────────────────── */
+  --token-on-surface: var(--primitive-neutral-50);          /* near-white for dark bg */
+  --token-on-surface-variant: oklch(0.793 0.010 264);       /* medium light labels */
+
+  /* ─── Color: Surface aliases ────────────────────────────────────────────── */
+  --token-bg: var(--token-surface);
+  --token-fg: var(--token-on-surface);
+  --token-card: var(--token-surface-container-low);
+  --token-card-fg: var(--token-on-surface);
+  --token-popover: var(--token-surface-container);
+  --token-popover-fg: var(--token-on-surface);
+
+  /* ─── Color: Subtle ─────────────────────────────────────────────────────── */
+  --token-muted: var(--primitive-gray-800);
+  --token-muted-fg: var(--primitive-gray-400);
+
+  /* ─── Color: Utility ────────────────────────────────────────────────────── */
+  --token-outline-variant: oklch(0.380 0.016 264); /* muted blue-gray in dark */
+  --token-border: var(--primitive-gray-800);
+  --token-input: var(--primitive-gray-700);
+  --token-ring: var(--primitive-blue-400);
+}

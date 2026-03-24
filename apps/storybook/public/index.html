@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sentinel Security Component Library</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary-container": "#0051c3",
+          "inverse-primary": "#b1c5ff",
+          "error": "#ba1a1a",
+          "outline": "#737785",
+          "background": "#fbf9f8",
+          "surface-tint": "#1357c9",
+          "primary": "#003b93",
+          "on-primary-container": "#beceff",
+          "secondary-fixed-dim": "#ffb787",
+          "on-tertiary-fixed-variant": "#3a485b",
+          "on-primary": "#ffffff",
+          "on-error": "#ffffff",
+          "on-background": "#1b1c1c",
+          "tertiary": "#344255",
+          "on-secondary-fixed-variant": "#723600",
+          "inverse-on-surface": "#f3f0f0",
+          "surface-container-highest": "#e4e2e1",
+          "surface-variant": "#e4e2e1",
+          "primary-fixed": "#dae2ff",
+          "surface-bright": "#fbf9f8",
+          "secondary-fixed": "#ffdcc7",
+          "tertiary-fixed": "#d5e3fc",
+          "on-primary-fixed": "#001947",
+          "secondary": "#964900",
+          "outline-variant": "#c3c6d6",
+          "on-primary-fixed-variant": "#00419f",
+          "on-tertiary": "#ffffff",
+          "on-secondary-container": "#642e00",
+          "surface-container-high": "#eae8e7",
+          "tertiary-container": "#4b596d",
+          "on-tertiary-fixed": "#0d1c2e",
+          "surface-container": "#f0eded",
+          "secondary-container": "#ff892a",
+          "surface-container-low": "#f6f3f2",
+          "on-error-container": "#93000a",
+          "on-secondary": "#ffffff",
+          "error-container": "#ffdad6",
+          "inverse-surface": "#303030",
+          "tertiary-fixed-dim": "#b9c7df",
+          "surface": "#fbf9f8",
+          "primary-fixed-dim": "#b1c5ff",
+          "on-tertiary-container": "#c1d0e8",
+          "surface-container-lowest": "#ffffff",
+          "on-surface": "#1b1c1c",
+          "on-secondary-fixed": "#311300",
+          "surface-dim": "#dcd9d9",
+          "on-surface-variant": "#434653"
+        },
+        fontFamily: {
+          "headline": ["Inter"],
+          "body": ["Inter"],
+          "label": ["Inter"],
+          "monospace": ["JetBrains Mono"]
+        },
+        borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+      },
+    },
+  }
+</script>
+<style>
+  body { font-family: 'Inter', sans-serif; background-color: #fbf9f8; color: #1b1c1c; }
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  .glass-panel { backdrop-filter: blur(12px); background-color: rgba(255, 255, 255, 0.8); }
+  .primary-gradient { background: linear-gradient(135deg, #003b93 0%, #0051c3 100%); }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+</style>
+</head>
+<body class="bg-background text-on-background antialiased selection:bg-primary/10 selection:text-primary">
+
+<!-- Top Navigation — glassmorphism, ambient tinted shadow, no border -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-surface-container-lowest/80 backdrop-blur-md shadow-[0_4px_20px_rgba(27,28,28,0.04)] font-sans antialiased text-sm font-medium">
+  <div class="flex items-center gap-8">
+    <!-- Brand: text-primary, never hardcoded blue -->
+    <div class="text-xl font-bold tracking-tight text-primary">Sentinel Security</div>
+    <nav class="hidden md:flex gap-1">
+      <!-- Active: bg-primary-fixed pill, no underline border -->
+      <a class="bg-primary-fixed text-primary font-semibold rounded-md px-3 py-1.5 transition-colors" href="#">Dashboard</a>
+      <a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-low px-3 py-1.5 rounded-md transition-colors" href="#">Logs</a>
+      <a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-low px-3 py-1.5 rounded-md transition-colors" href="#">Assets</a>
+      <a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-low px-3 py-1.5 rounded-md transition-colors" href="#">Team</a>
+    </nav>
+  </div>
+  <div class="flex items-center gap-4">
+    <button class="p-2 text-on-surface-variant hover:bg-surface-container-low transition-all rounded-lg">
+      <span class="material-symbols-outlined">notifications</span>
+    </button>
+    <button class="p-2 text-on-surface-variant hover:bg-surface-container-low transition-all rounded-lg">
+      <span class="material-symbols-outlined">settings</span>
+    </button>
+    <div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden">
+      <img alt="User profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuamXIjGOdnQ_swOqjY2WyECX31AAD-HbM4-wUPocsajo174s_KSASQIk0Ka6r3m_N6aLUUyWjdD9exUvLAHiN6o8TE5dTbAEnABXiYIA-A6SXgDY1rBzHkOYWrFsWL-a_271lP6SxFQHkf6eikiZd7DBGTrxDfUzcdV-5uXxt_Qla6cpG7Ge5UpfahJRGtrw7HwqhZj46gp54klTyQCEZ5CPBd_NuNCpbP8Az_XGH06oEhlHzAq5DmPrTCI6TZmyuz6TW1aGM2tCy"/>
+    </div>
+  </div>
+</header>
+
+<main class="pt-24 pb-20 px-6 max-w-[1600px] mx-auto">
+
+  <!-- Hero Header Section -->
+  <section class="mb-16">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div class="max-w-2xl">
+        <span class="text-primary font-bold tracking-widest text-xs uppercase mb-2 block">Design System v1.0</span>
+        <h1 class="text-5xl font-extrabold tracking-tight text-on-surface mb-4">The Digital Bastion</h1>
+        <p class="text-on-surface-variant text-lg leading-relaxed">A comprehensive UI component library built for elite security operations. Balancing monolithic strength with high-end editorial transparency.</p>
+      </div>
+      <div class="flex gap-3">
+        <!-- Primary: gradient fill, primary-tinted shadow ✓ -->
+        <button class="primary-gradient text-on-primary px-6 py-2.5 rounded-lg font-semibold flex items-center gap-2 shadow-lg shadow-primary/20 hover:opacity-90 transition-all">
+          <span class="material-symbols-outlined text-[20px]">file_download</span>
+          Export Library
+        </button>
+        <!-- Secondary: surface-container-high bg, on-surface text, no border ✓ -->
+        <button class="bg-surface-container-high text-on-surface px-6 py-2.5 rounded-lg font-semibold hover:bg-surface-container-highest transition-all">Documentation</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Showcase Grid -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+    <!-- Left Column: Navigation & Core Actions -->
+    <div class="lg:col-span-4 space-y-8">
+
+      <!-- Buttons Showcase -->
+      <div class="bg-surface-container-low p-8 rounded-xl space-y-8">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="material-symbols-outlined text-primary">radio_button_checked</span>
+          <h2 class="text-xl font-bold tracking-tight">Buttons</h2>
+        </div>
+        <div class="space-y-6">
+          <div class="space-y-3">
+            <p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Variants</p>
+            <div class="flex flex-wrap gap-3">
+              <!-- Primary: gradient ✓ -->
+              <button class="primary-gradient text-on-primary px-4 py-2 rounded-lg text-sm font-semibold">Primary</button>
+              <!-- Secondary: surface-container-high bg, no border ✓ -->
+              <button class="bg-surface-container-high text-on-surface px-4 py-2 rounded-lg text-sm font-semibold hover:bg-surface-container-highest transition-colors">Secondary</button>
+              <!-- Tertiary (was "Outline"): ghost — no bg, no border until hover ✓ -->
+              <button class="text-primary px-4 py-2 rounded-lg text-sm font-semibold hover:bg-primary-fixed transition-colors">Tertiary</button>
+              <!-- Ghost ✓ -->
+              <button class="text-primary px-4 py-2 rounded-lg text-sm font-semibold hover:bg-primary-fixed transition-colors">Ghost</button>
+            </div>
+          </div>
+          <div class="space-y-3">
+            <p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Sizes &amp; States</p>
+            <div class="flex items-center gap-3">
+              <button class="primary-gradient text-on-primary px-3 py-1.5 rounded text-xs font-bold">Small</button>
+              <button class="primary-gradient text-on-primary px-8 py-3 rounded-xl text-base font-bold">Extra Large</button>
+              <button class="primary-gradient opacity-50 text-on-primary px-4 py-2 rounded-lg text-sm font-semibold cursor-not-allowed">Disabled</button>
+            </div>
+          </div>
+          <div class="space-y-3">
+            <p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Icon Components</p>
+            <div class="flex gap-3">
+              <!-- Primary-tinted shadow ✓ -->
+              <button class="primary-gradient text-on-primary p-2.5 rounded-full shadow-[0_2px_8px_rgba(0,59,147,0.30)]">
+                <span class="material-symbols-outlined text-[20px]">shield</span>
+              </button>
+              <!-- Ambient tinted shadow ✓ -->
+              <button class="bg-surface-container-lowest text-primary p-2.5 rounded-full shadow-[0_2px_8px_rgba(27,28,28,0.06)]">
+                <span class="material-symbols-outlined text-[20px]">bolt</span>
+              </button>
+              <button class="text-error bg-error-container/20 p-2.5 rounded-full">
+                <span class="material-symbols-outlined text-[20px]">delete</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Overlays & Feedback -->
+      <div class="bg-surface-container-low p-8 rounded-xl space-y-8">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="material-symbols-outlined text-primary">layers</span>
+          <h2 class="text-xl font-bold tracking-tight">Overlays &amp; Feedback</h2>
+        </div>
+        <div class="space-y-6">
+
+          <!-- Badges & Status -->
+          <div class="space-y-3">
+            <p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">Badges &amp; Status</p>
+            <div class="flex gap-2">
+              <span class="bg-primary text-on-primary px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-tighter">Active</span>
+              <!-- Auth-Badge: text-secondary (#964900) on secondary-fixed ✓ -->
+              <span class="bg-secondary-fixed text-secondary px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-tighter">MFA Enabled</span>
+              <span class="bg-error-container text-on-error-container px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-tighter">Critical</span>
+            </div>
+          </div>
+
+          <!-- Alerts — no border-l-4, icon in colored container ✓ -->
+          <div class="space-y-3">
+            <!-- Info: bg-primary-fixed, icon wrapped in bg-primary container -->
+            <div class="bg-primary-fixed p-4 rounded-xl flex gap-3">
+              <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined text-on-primary text-[18px]">info</span>
+              </div>
+              <div>
+                <p class="text-sm font-bold text-on-surface">System Update</p>
+                <p class="text-xs text-on-surface-variant">Version 4.2.0 will be deployed at 02:00 UTC.</p>
+              </div>
+            </div>
+            <!-- Error: bg-error-container/30, icon in bg-error container -->
+            <div class="bg-error-container/30 p-4 rounded-xl flex gap-3">
+              <div class="w-8 h-8 rounded-lg bg-error flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined text-on-error text-[18px]">warning</span>
+              </div>
+              <div>
+                <p class="text-sm font-bold text-error">Breach Detected</p>
+                <p class="text-xs text-on-error-container">Unauthorized access attempt in Region: EU-WEST.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Progress -->
+          <div class="space-y-3">
+            <div class="flex justify-between text-xs font-bold mb-1">
+              <span>NETWORK SECURITY POSTURE</span>
+              <span>82%</span>
+            </div>
+            <div class="w-full h-2 bg-surface-container-highest rounded-full overflow-hidden">
+              <div class="h-full primary-gradient w-[82%] rounded-full"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Middle Column: Form Elements & Inputs -->
+    <div class="lg:col-span-4 space-y-8">
+      <!-- Ambient tinted shadow ✓ -->
+      <div class="bg-surface-container-lowest p-8 rounded-xl shadow-[0_2px_12px_rgba(27,28,28,0.04)] space-y-8">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="material-symbols-outlined text-primary">edit_note</span>
+          <h2 class="text-xl font-bold tracking-tight">Form Elements</h2>
+        </div>
+        <div class="space-y-6">
+
+          <div class="space-y-2">
+            <label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Asset Identifier</label>
+            <!-- Input: surface-container-low bg, no border, focus ring 40% opacity ✓ -->
+            <input class="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 text-sm focus:ring-2 focus:ring-primary/40 focus:bg-surface-container-lowest transition-all" placeholder="Sentinel-Node-01" type="text"/>
+          </div>
+
+          <div class="space-y-2">
+            <label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Deployment Region</label>
+            <select class="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 text-sm focus:ring-2 focus:ring-primary/40 focus:bg-surface-container-lowest transition-all appearance-none">
+              <option>North America (US-East)</option>
+              <option>Europe (Frankfurt)</option>
+              <option>Asia Pacific (Tokyo)</option>
+            </select>
+          </div>
+
+          <div class="space-y-2">
+            <label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Security Logs</label>
+            <textarea class="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 text-sm font-monospace focus:ring-2 focus:ring-primary/40 focus:bg-surface-container-lowest transition-all" rows="4">08:24:12 [INFO] Connection established...
+08:25:44 [DEBUG] Payload integrity verified...
+08:30:01 [AUTH] Session key rotated.</textarea>
+          </div>
+
+          <div class="flex items-center justify-between p-4 bg-surface-container-low rounded-lg">
+            <div>
+              <p class="text-sm font-bold">Biometric Authentication</p>
+              <p class="text-[10px] text-on-surface-variant uppercase font-bold">High Security Mode</p>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input checked="" class="sr-only peer" type="checkbox"/>
+              <div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+            </label>
+          </div>
+
+          <!-- Form section: removed border-t, spacing-only separation ✓ -->
+          <div class="space-y-4 pt-4">
+            <div class="flex items-center gap-3">
+              <input checked="" class="w-5 h-5 rounded border-none bg-surface-container-high text-primary focus:ring-primary/40" type="checkbox"/>
+              <span class="text-sm font-medium">Automatic vulnerability patching</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <input checked="" class="w-5 h-5 border-none bg-surface-container-high text-primary focus:ring-primary/40" name="perm" type="radio"/>
+              <span class="text-sm font-medium">Read-only Analyst access</span>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <label class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Threat Sensitivity</label>
+            <input class="w-full h-1 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary" type="range"/>
+            <div class="flex justify-between text-[10px] font-bold text-on-surface-variant">
+              <span>LOW</span>
+              <span>BALANCED</span>
+              <span>PARANOID</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Interactive Cards & Data Structures -->
+    <div class="lg:col-span-4 space-y-8">
+
+      <!-- Advanced Card — tonal hover, no shadow pop, no border-t in footer ✓ -->
+      <div class="bg-surface-container-low rounded-xl overflow-hidden group hover:bg-surface-container-highest transition-colors duration-200">
+        <div class="h-48 relative overflow-hidden">
+          <img alt="Security Infrastructure" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnZ1UDrE3eHOHn8-gvYCxK088dbrtm73TbOuS9GdJAs7R0_qHcFiCQoGVxArNgzraTPlxY1q-XDkfSMnARicmNRRWENAPiTsd7LBh3lidpucTEe5ewkAKwPIeuLqKZqfwb1r428oXV88poz4hqARxubolu9uVXr-UbA10d3QZ71syhkDwqFP3xarDlNeF_lIkwfEha_tzloKc09H2v-pxmEAVoUFgZ29LPYBpl1On9ofW6Uj9KvjdybooFslZ26wWsN7-4DW3iu3FL"/>
+          <div class="absolute inset-0 bg-primary/20"></div>
+          <div class="absolute top-4 left-4">
+            <!-- Glassmorphism chip: surface-container-lowest/90 + backdrop-blur ✓ -->
+            <span class="bg-surface-container-lowest/90 backdrop-blur-md px-3 py-1 rounded text-[10px] font-extrabold text-primary uppercase">Asset Node #88</span>
+          </div>
+        </div>
+        <div class="p-6">
+          <h3 class="text-lg font-bold mb-2">Central Security Gateway</h3>
+          <p class="text-sm text-on-surface-variant mb-6">Real-time monitoring and encrypted traffic analysis for all enterprise endpoints.</p>
+          <!-- Card footer: no border-t, spacing-only ✓ -->
+          <div class="flex items-center justify-between mt-4 pt-4">
+            <div class="flex -space-x-2">
+              <img alt="Team member" class="w-8 h-8 rounded-full ring-2 ring-surface-container-low" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHkIL9PtzZK9KZGeFKvuDqrv8uobtjAvAAZZukLfg7JGlgBfFAjjuBXPMRdSjtDxDdYYCE0pBQbKajj8dk46u0MnTW4JYJeOgmgPvd8SY9i9J_FFKkxvoL5ZMtpI--kUlQcHC5M5GI1Je0CymON1lxgIjxmtu7RdKWLaS-nmqdrpV_X3Z60bTINqGoFfQeOfpOZuewo2znO_XLtwX5Cy-0r12Uv8ansLXBoifOoD23tSpoESXkw1gbbCAiFijoiXxHnQdzB9g-vNEk"/>
+              <img alt="Team member" class="w-8 h-8 rounded-full ring-2 ring-surface-container-low" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCT8B0tqcwkgmkfeHxc49X4nQ0WJNPrB8-jXX778iR7hziCcHIQRoLzDmc3skbIv18LTs39IOWO-niS_YqoXMpSivhA2TEZtlNXZgrl04wnI7oxxJNdg-XpT6wGzJBZyBtNwD8noMmft26UhTOzxAqF6KL2-afnfMGmodKCYOMA9k1PE842-VInrGaWVVVjw24HMr9ypTQZ68RIkTliItJW7KPQFEKLurCbuDty0Zm8hrHytoPnIYJFQ0N2lJGz6pAciBTYyjOHzVrR"/>
+              <div class="w-8 h-8 rounded-full ring-2 ring-surface-container-low bg-surface-container-highest flex items-center justify-center text-[10px] font-bold">+4</div>
+            </div>
+            <button class="text-primary font-bold text-sm hover:underline">Manage Node</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bento Grid — tonal hover shift, no shadows ✓ -->
+      <div class="grid grid-cols-2 gap-4">
+        <div class="bg-surface-container-lowest p-6 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer">
+          <span class="material-symbols-outlined text-primary mb-2">analytics</span>
+          <h4 class="text-sm font-bold">Reports</h4>
+          <p class="text-xs text-on-surface-variant">View weekly logs</p>
+        </div>
+        <div class="bg-surface-container-lowest p-6 rounded-xl hover:bg-surface-container-low transition-colors cursor-pointer">
+          <span class="material-symbols-outlined text-secondary mb-2">history</span>
+          <h4 class="text-sm font-bold">Audit</h4>
+          <p class="text-xs text-on-surface-variant">System history</p>
+        </div>
+      </div>
+
+      <!-- Tabs & Pagination — ambient tinted shadow, no borders on pagination ✓ -->
+      <div class="bg-surface-container-lowest p-8 rounded-xl shadow-[0_2px_12px_rgba(27,28,28,0.04)] space-y-8">
+        <div class="space-y-4">
+          <div class="flex p-1 bg-surface-container-low rounded-lg gap-1">
+            <!-- Active tab: surface-container-lowest (tonal lift from container-low) ✓ -->
+            <button class="flex-1 bg-surface-container-lowest py-2 rounded-md text-xs font-bold text-primary">Live Data</button>
+            <button class="flex-1 py-2 rounded-md text-xs font-bold text-on-surface-variant hover:text-on-surface transition-colors">Snapshots</button>
+            <button class="flex-1 py-2 rounded-md text-xs font-bold text-on-surface-variant hover:text-on-surface transition-colors">Archive</button>
+          </div>
+        </div>
+        <div class="flex items-center justify-center gap-2">
+          <!-- Pagination: surface-container-low bg, no border ✓ -->
+          <button class="w-8 h-8 flex items-center justify-center rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors">
+            <span class="material-symbols-outlined text-[18px]">chevron_left</span>
+          </button>
+          <button class="w-8 h-8 flex items-center justify-center rounded-lg bg-primary text-on-primary text-xs font-bold">1</button>
+          <button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container-low text-xs font-bold transition-colors">2</button>
+          <button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container-low text-xs font-bold transition-colors">3</button>
+          <button class="w-8 h-8 flex items-center justify-center rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors">
+            <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+          </button>
+        </div>
+        <!-- Breadcrumbs -->
+        <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-on-surface-variant">
+          <a class="hover:text-primary transition-colors" href="#">Admin</a>
+          <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+          <a class="hover:text-primary transition-colors" href="#">Resources</a>
+          <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+          <span class="text-on-surface">Library</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section: Technical Stats — editorial left-aligned, no text-center ✓ -->
+  <section class="mt-20">
+    <span class="text-primary font-bold tracking-widest text-xs uppercase mb-3 block">Infrastructure</span>
+    <h2 class="text-3xl font-bold mb-10">System Performance Architecture</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <!-- Dark featured card: bg-on-surface (#1b1c1c), no bg-slate-900 ✓ -->
+      <div class="md:col-span-2 bg-on-surface p-10 rounded-2xl relative overflow-hidden group">
+        <div class="relative z-10">
+          <!-- text-inverse-primary for blue accent on dark bg ✓ -->
+          <h4 class="text-inverse-primary text-xs font-extrabold uppercase mb-4 tracking-widest">REAL-TIME TRAFFIC</h4>
+          <!-- text-surface-container-lowest for main text on dark ✓ -->
+          <div class="text-5xl font-extrabold mb-4 font-monospace text-surface-container-lowest">1.2 GB/s</div>
+          <!-- text-surface-container-high for muted body text on dark ✓ -->
+          <p class="text-surface-container-high max-w-sm">Global throughput across all Sentinel nodes is currently operating at peak efficiency with zero latency spikes.</p>
+        </div>
+        <div class="absolute right-0 bottom-0 opacity-10 group-hover:opacity-20 transition-opacity text-surface-container-lowest">
+          <span class="material-symbols-outlined text-[200px]" style="font-variation-settings: 'FILL' 1;">lan</span>
+        </div>
+      </div>
+
+      <!-- Stat cards: surface-container-lowest bg, no border, ambient tinted shadow ✓ -->
+      <div class="bg-surface-container-lowest p-8 rounded-2xl shadow-[0_2px_12px_rgba(27,28,28,0.04)]">
+        <!-- Icon container: bg-primary-fixed, not bg-primary/10 ✓ -->
+        <div class="w-12 h-12 bg-primary-fixed text-primary rounded-xl flex items-center justify-center mb-6">
+          <span class="material-symbols-outlined">security</span>
+        </div>
+        <h4 class="text-xl font-bold mb-2">99.9%</h4>
+        <p class="text-sm text-on-surface-variant">Uptime guarantee for all critical vault services.</p>
+      </div>
+
+      <div class="bg-surface-container-lowest p-8 rounded-2xl shadow-[0_2px_12px_rgba(27,28,28,0.04)]">
+        <!-- Icon container: bg-secondary-fixed, not bg-secondary/10 ✓ -->
+        <div class="w-12 h-12 bg-secondary-fixed text-secondary rounded-xl flex items-center justify-center mb-6">
+          <span class="material-symbols-outlined">bolt</span>
+        </div>
+        <h4 class="text-xl font-bold mb-2">12ms</h4>
+        <p class="text-sm text-on-surface-variant">Average response time for authentication handshakes.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Bottom Nav for Mobile — token colors, no hardcoded, tinted shadow ✓ -->
+<div class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-surface-container-lowest/90 backdrop-blur-lg shadow-[0_-4px_20px_rgba(27,28,28,0.04)]">
+  <!-- Active: text-primary + bg-primary-fixed pill ✓ -->
+  <div class="flex flex-col items-center justify-center text-primary bg-primary-fixed rounded-xl px-4 py-1 transition-all">
+    <span class="material-symbols-outlined">home</span>
+    <span class="text-[10px] font-bold uppercase tracking-wider">Home</span>
+  </div>
+  <!-- Inactive: text-on-surface-variant ✓ -->
+  <div class="flex flex-col items-center justify-center text-on-surface-variant transition-all">
+    <span class="material-symbols-outlined">verified_user</span>
+    <span class="text-[10px] font-bold uppercase tracking-wider">Shield</span>
+  </div>
+  <div class="flex flex-col items-center justify-center text-on-surface-variant transition-all">
+    <span class="material-symbols-outlined">warning</span>
+    <span class="text-[10px] font-bold uppercase tracking-wider">Alerts</span>
+  </div>
+  <div class="flex flex-col items-center justify-center text-on-surface-variant transition-all">
+    <span class="material-symbols-outlined">settings</span>
+    <span class="text-[10px] font-bold uppercase tracking-wider">Settings</span>
+  </div>
+</div>
+
+<!-- FAB — primary-tinted shadow, not shadow-2xl ✓ -->
+<button class="fixed bottom-24 right-8 w-14 h-14 primary-gradient text-white rounded-full shadow-[0_8px_40px_rgba(0,59,147,0.25)] flex items-center justify-center hover:scale-105 active:scale-95 transition-all md:bottom-8">
+  <span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">add</span>
+</button>
+
+</body>
+</html>

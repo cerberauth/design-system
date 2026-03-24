@@ -1,0 +1,17 @@
+{
+  "name": "@cerberauth/tokens",
+  "version": "0.1.0",
+  "description": "Framework-agnostic CSS design tokens for CerberAuth",
+  "license": "MIT",
+  "exports": {
+    "./css": "./src/index.css"
+  },
+  "files": ["src"],
+  "keywords": ["design-tokens", "css", "tailwind", "cerberauth"],
+  "peerDependencies": {
+    "tailwindcss": ">=4.0.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "4.2.2"
+  }
+}

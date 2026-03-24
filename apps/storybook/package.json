@@ -1,0 +1,33 @@
+{
+  "name": "@cerberauth/storybook",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Storybook for the CerberAuth Design System",
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "dependencies": {
+    "@cerberauth/tokens": "workspace:*",
+    "@cerberauth/ui": "workspace:*",
+    "lucide-react": "^1.0.1",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-hook-form": "^7.72.0",
+    "sonner": "^2.0.7"
+  },
+  "devDependencies": {
+    "@cerberauth/tsconfig": "workspace:*",
+    "@storybook/addon-a11y": "^10.3.3",
+    "@storybook/addon-links": "^10.3.3",
+    "@storybook/react": "^10.3.3",
+    "@storybook/react-vite": "^10.3.3",
+    "storybook": "^10.3.3",
+    "@tailwindcss/vite": "^4.2.2",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "tailwindcss": "^4.2.2",
+    "typescript": "^6.0.2",
+    "vite": "^8.0.2"
+  }
+}

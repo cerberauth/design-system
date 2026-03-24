@@ -1,0 +1,140 @@
+/**
+ * @cerberauth/tokens — entry point
+ *
+ * Import this file in your app or Storybook to get:
+ *   1. Tailwind CSS v4 base styles
+ *   2. Primitive + semantic CSS custom properties
+ *   3. Dark mode overrides via [data-theme="dark"]
+ *   4. Tailwind @theme mappings for bg-primary, text-fg, rounded-md, etc.
+ *
+ * Usage (CSS):
+ *   @import "@cerberauth/tokens/css";
+ *
+ * Usage (Next.js / app router):
+ *   import "@cerberauth/tokens/css";
+ */
+
+@import "tailwindcss";
+@import "./primitives.css";
+@import "./semantic.css";
+@import "./dark.css";
+
+/* Map Tailwind's dark: variant to [data-theme="dark"] selector */
+@variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme inline {
+  /* Reset Tailwind color defaults to avoid collisions */
+  --color-*: initial;
+
+  /* ─── Colors: White / Black ───────────────────────────────────────────── */
+  --color-white: oklch(1 0 0);
+  --color-black: oklch(0 0 0);
+
+  /* ─── Colors: Primary brand ───────────────────────────────────────────── */
+  --color-primary: var(--token-primary);
+  --color-primary-fg: var(--token-primary-fg);
+  --color-primary-container: var(--token-primary-container);
+  --color-primary-fixed: var(--token-primary-fixed);
+
+  /* ─── Colors: Secondary brand (amber) ────────────────────────────────── */
+  --color-secondary: var(--token-secondary);
+  --color-secondary-fg: var(--token-secondary-fg);
+  --color-secondary-fixed: var(--token-secondary-fixed);
+  --color-secondary-fixed-fg: var(--token-secondary-fixed-fg);
+
+  /* ─── Colors: Destructive ────────────────────────────────────────────── */
+  --color-destructive: var(--token-destructive);
+  --color-destructive-fg: var(--token-destructive-fg);
+
+  /* ─── Colors: Accent ─────────────────────────────────────────────────── */
+  --color-accent: var(--token-accent);
+  --color-accent-fg: var(--token-accent-fg);
+
+  /* ─── Colors: Surface hierarchy (No-Line rule) ───────────────────────── */
+  --color-surface: var(--token-surface);
+  --color-surface-container-lowest: var(--token-surface-container-lowest);
+  --color-surface-container-low: var(--token-surface-container-low);
+  --color-surface-container: var(--token-surface-container);
+  --color-surface-container-high: var(--token-surface-container-high);
+  --color-surface-container-highest: var(--token-surface-container-highest);
+  --color-surface-dim: var(--token-surface-dim);
+
+  /* ─── Colors: On-surface text/icons ─────────────────────────────────── */
+  --color-on-surface: var(--token-on-surface);
+  --color-on-surface-variant: var(--token-on-surface-variant);
+
+  /* ─── Colors: Utility ────────────────────────────────────────────────── */
+  --color-outline-variant: var(--token-outline-variant);
+  --color-muted: var(--token-muted);
+  --color-muted-fg: var(--token-muted-fg);
+  --color-border: var(--token-border);
+  --color-input: var(--token-input);
+  --color-ring: var(--token-ring);
+
+  /* ─── Colors: Aliases ────────────────────────────────────────────────── */
+  --color-bg: var(--token-bg);
+  --color-fg: var(--token-fg);
+  --color-card: var(--token-card);
+  --color-card-fg: var(--token-card-fg);
+  --color-popover: var(--token-popover);
+  --color-popover-fg: var(--token-popover-fg);
+
+  /* ─── Colors: shadcn/ui compatibility aliases ────────────────────────── */
+  /* shadcn components use -foreground suffix; map to our -fg tokens       */
+  --color-background: var(--token-bg);
+  --color-foreground: var(--token-fg);
+  --color-primary-foreground: var(--token-primary-fg);
+  --color-secondary-foreground: var(--token-secondary-fg);
+  --color-destructive-foreground: var(--token-destructive-fg);
+  --color-accent-foreground: var(--token-accent-fg);
+  --color-card-foreground: var(--token-card-fg);
+  --color-popover-foreground: var(--token-popover-fg);
+  --color-muted-foreground: var(--token-muted-fg);
+
+  /* ─── Border Radius ───────────────────────────────────────────────────── */
+  --radius-sm: var(--token-radius-sm);
+  --radius-md: var(--token-radius-md);
+  --radius-lg: var(--token-radius-lg);
+  --radius-xl: var(--token-radius-xl);
+  --radius-full: var(--token-radius-full);
+
+  /* ─── Typography: Font families ──────────────────────────────────────── */
+  --font-sans: var(--token-font-sans);
+  --font-mono: var(--token-font-mono);
+
+  /* ─── Typography: Semantic size roles ───────────────────────────────── */
+  /* Generates: text-display-lg, text-display-md, text-headline-lg, etc.   */
+  --text-display-lg: var(--token-font-size-display-lg);   /* 3rem, -0.02em tracking */
+  --text-display-md: var(--token-font-size-display-md);   /* 2.25rem, -0.02em tracking */
+  --text-headline-lg: var(--token-font-size-headline-lg); /* 2rem */
+  --text-title-lg: var(--token-font-size-title-lg);       /* 1.25rem, SemiBold */
+  --text-body-md: var(--token-font-size-body-md);         /* 1rem, Regular */
+  --text-label-md: var(--token-font-size-label-md);       /* 0.875rem, on-surface-variant */
+
+  /* ─── Typography: Letter spacing ─────────────────────────────────────── */
+  /* Generates: tracking-display (for hero statements) */
+  --tracking-display: var(--token-tracking-display); /* -0.02em */
+
+  /* ─── Typography: Font weights ───────────────────────────────────────── */
+  /* Generates: font-semibold (600), font-regular (400) */
+  --font-weight-regular: var(--token-font-weight-regular);
+  --font-weight-semibold: var(--token-font-weight-semibold);
+}
+
+/* Base styles tied to our semantic tokens */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    border-color: var(--token-border);
+  }
+
+  body {
+    background-color: var(--token-surface);
+    color: var(--token-on-surface);
+    font-family: var(--token-font-sans);
+    line-height: var(--token-line-height-normal);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
