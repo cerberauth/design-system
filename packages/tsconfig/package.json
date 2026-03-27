@@ -1,0 +1,10 @@
+{
+  "name": "@cerberauth/tsconfig",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Shared TypeScript configuration for CerberAuth packages",
+  "exports": {
+    "./base.json": "./base.json"
+  },
+  "files": ["base.json"]
+}

@@ -1,0 +1,25 @@
+{
+  "name": "@cerberauth/design-system",
+  "private": true,
+  "description": "CerberAuth Design System monorepo",
+  "engines": {
+    "node": ">=24.0.0",
+    "pnpm": ">=10.0.0"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "type-check": "turbo run type-check",
+    "storybook": "turbo run storybook",
+    "build-storybook": "turbo run build-storybook",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "pnpm run build && changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "2.30.0",
+    "turbo": "2.8.20"
+  },
+  "packageManager": "pnpm@10.29.2"
+}

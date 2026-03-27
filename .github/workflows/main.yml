@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  build:
+    name: Build & Type-check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Setup pnpm + Turborepo 🏗
+        uses: cerberauth/ci/actions/pnpm-turbo-setup@main
+        with:
+          fetch-depth: 2
+
+      - name: Build
+        run: pnpm turbo run build
+        env:
+          TURBO_TELEMETRY_DISABLED: 1
+
+      - name: Type-check
+        run: pnpm turbo run type-check
+        env:
+          TURBO_TELEMETRY_DISABLED: 1
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Setup pnpm + Turborepo 🏗
+        uses: cerberauth/ci/actions/pnpm-turbo-setup@main
+
+      - name: Build
+        run: pnpm turbo run build
+        env:
+          TURBO_TELEMETRY_DISABLED: 1
+
+      - name: Lint
+        run: pnpm turbo run lint
+        env:
+          TURBO_TELEMETRY_DISABLED: 1
+
+  storybook:
+    name: Build Storybook
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Setup pnpm + Turborepo 🏗
+        uses: cerberauth/ci/actions/pnpm-turbo-setup@main
+
+      - name: Build Storybook
+        run: pnpm turbo run build-storybook
+        env:
+          TURBO_TELEMETRY_DISABLED: 1
