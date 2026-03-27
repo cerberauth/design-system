@@ -8,6 +8,10 @@
   },
   "files": ["src"],
   "keywords": ["design-tokens", "css", "tailwind", "cerberauth"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cerberauth/design-system"
+  },
   "peerDependencies": {
     "tailwindcss": ">=4.0.0"
   },

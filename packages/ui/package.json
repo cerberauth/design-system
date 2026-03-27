@@ -65,5 +65,9 @@
     "tsup": "8.5.1",
     "typescript": "6.0.2"
   },
-  "keywords": ["react", "ui", "components", "design-system", "cerberauth", "shadcn"]
+  "keywords": ["react", "ui", "components", "design-system", "cerberauth", "shadcn"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cerberauth/design-system"
+  }
 }
