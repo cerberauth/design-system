@@ -17,13 +17,14 @@ jobs:
       contents: write
       pull-requests: write
       id-token: write
+      packages: write
 
     steps:
       - name: Setup pnpm + Turborepo 🏗
         uses: cerberauth/ci/actions/pnpm-turbo-setup@main
         with:
           fetch-depth: 0
-          registry-url: https://registry.npmjs.org
+          registry-url: https://npm.pkg.github.com
 
       - name: Build packages
         run: pnpm turbo run build
