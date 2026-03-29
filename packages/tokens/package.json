@@ -6,8 +6,15 @@
   "exports": {
     "./css": "./src/index.css"
   },
-  "files": ["src"],
-  "keywords": ["design-tokens", "css", "tailwind", "cerberauth"],
+  "files": [
+    "src"
+  ],
+  "keywords": [
+    "design-tokens",
+    "css",
+    "tailwind",
+    "cerberauth"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/cerberauth/design-system"
