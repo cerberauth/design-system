@@ -6,8 +6,9 @@
 
 :root {
   /* ─── Color: Primary brand ──────────────────────────────────────────────── */
-  /* Bright vivid blue — ≈ #3D8BFF, matching cerberauth.com brand */
-  --token-primary: var(--primitive-blue-500);
+  /* Vivid blue — darkened from blue-500 (#2a7eff) to blue-600 (#155dfc) to meet
+     WCAG AA 4.5:1 contrast for white text and for primary-colored text on surface. */
+  --token-primary: var(--primitive-blue-600);
   --token-primary-fg: var(--primitive-white);
   --token-primary-container: var(--primitive-blue-600); /* darker blue — gradient end for CTAs */
   --token-primary-fixed: var(--primitive-blue-fixed);   /* very light blue — input focus glow */
@@ -22,6 +23,12 @@
   /* ─── Color: Destructive ────────────────────────────────────────────────── */
   --token-destructive: var(--primitive-red-600);
   --token-destructive-fg: var(--primitive-white);
+
+  /* ─── Color: Success ────────────────────────────────────────────────────── */
+  /* Not part of the original scale — added for positive/no-issues states */
+  --token-success: var(--primitive-green-600);
+  --token-success-fg: var(--primitive-white);
+  --token-success-fixed: var(--primitive-green-100);
 
   /* ─── Color: Accent (hover / subtle highlight) ──────────────────────────── */
   --token-accent: var(--primitive-blue-50);
@@ -52,7 +59,8 @@
 
   /* ─── Color: Subtle (muted text / inactive) ─────────────────────────────── */
   --token-muted: var(--primitive-neutral-100);
-  --token-muted-fg: var(--primitive-gray-500);
+  /* gray-600 (not gray-500) to meet 4.5:1 contrast on neutral-100/50 surfaces */
+  --token-muted-fg: var(--primitive-gray-600);
 
   /* ─── Color: Utility ────────────────────────────────────────────────────── */
   /* Ghost border fallback: outline-variant at 15% opacity — felt, not seen */
@@ -74,6 +82,13 @@
   --token-radius-xl: var(--primitive-radius-xl);
   --token-radius-full: var(--primitive-radius-full);
 
+  /* ─── Shadow ─────────────────────────────────────────────────────────────── */
+  /* Soft, low-contrast — depth leans on surface tone (No-Line rule), not heavy shadow */
+  --token-shadow-xs: 0 1px 2px 0 oklch(0 0 0 / 0.04);
+  --token-shadow-sm: 0 1px 3px 0 oklch(0 0 0 / 0.06), 0 1px 2px -1px oklch(0 0 0 / 0.06);
+  --token-shadow-md: 0 4px 6px -1px oklch(0 0 0 / 0.08), 0 2px 4px -2px oklch(0 0 0 / 0.06);
+  --token-shadow-lg: 0 10px 15px -3px oklch(0 0 0 / 0.10), 0 4px 6px -4px oklch(0 0 0 / 0.08);
+
   /* ─── Typography: Font families ─────────────────────────────────────────── */
   --token-font-sans: var(--primitive-font-sans);
   --token-font-mono: var(--primitive-font-mono);
@@ -92,20 +107,28 @@
   --token-font-size-label-md: var(--primitive-font-size-sm);     /* 0.875rem — on-surface-variant */
 
   /* Utility aliases */
+  --token-font-size-xs: var(--primitive-font-size-xs);
   --token-font-size-sm: var(--primitive-font-size-sm);
   --token-font-size-base: var(--primitive-font-size-base);
   --token-font-size-lg: var(--primitive-font-size-lg);
+  --token-font-size-xl: var(--primitive-font-size-xl);
+  --token-font-size-2xl: var(--primitive-font-size-2xl);
 
   /* ─── Typography: Letter spacing ─────────────────────────────────────────── */
   --token-tracking-display: var(--primitive-tracking-tighter); /* -0.02em for Display */
+  --token-tracking-tight: var(--primitive-tracking-tight);     /* -0.01em */
   --token-tracking-normal: var(--primitive-tracking-normal);
+  --token-tracking-wide: var(--primitive-tracking-wide);       /* 0.025em */
 
   /* ─── Typography: Font weights ───────────────────────────────────────────── */
   --token-font-weight-regular: var(--primitive-font-weight-regular);     /* 400 */
+  --token-font-weight-medium: var(--primitive-font-weight-medium);       /* 500 */
   --token-font-weight-semibold: var(--primitive-font-weight-semibold);   /* 600 */
   --token-font-weight-bold: var(--primitive-font-weight-bold);           /* 700 */
 
   /* ─── Typography: Line heights ───────────────────────────────────────────── */
   --token-line-height-tight: var(--primitive-line-height-tight);
+  --token-line-height-snug: var(--primitive-line-height-snug);
   --token-line-height-normal: var(--primitive-line-height-normal);
+  --token-line-height-relaxed: var(--primitive-line-height-relaxed);
 }

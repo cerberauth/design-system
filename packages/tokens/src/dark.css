@@ -9,7 +9,8 @@
 
 [data-theme="dark"] {
   /* ─── Color: Primary brand ──────────────────────────────────────────────── */
-  --token-primary: var(--primitive-blue-500);
+  /* blue-600 to keep 4.5:1 contrast with white text (same rule as light theme) */
+  --token-primary: var(--primitive-blue-600);
   --token-primary-fg: var(--primitive-white);
   --token-primary-container: var(--primitive-blue-700);
   --token-primary-fixed: var(--primitive-blue-950);
@@ -21,7 +22,8 @@
   --token-secondary-fixed-fg: var(--primitive-amber-100);
 
   /* ─── Color: Destructive ────────────────────────────────────────────────── */
-  --token-destructive: var(--primitive-red-500);
+  /* red-600 to keep 4.5:1 contrast with white text (same rule as light theme) */
+  --token-destructive: var(--primitive-red-600);
   --token-destructive-fg: var(--primitive-white);
 
   /* ─── Color: Accent ─────────────────────────────────────────────────────── */
