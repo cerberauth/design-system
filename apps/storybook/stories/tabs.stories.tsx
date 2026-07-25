@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import { Tabs, TabsList, TabsTrigger, TabsContent, Card, CardContent, CardHeader, CardTitle, CardDescription, Button, Input, Label } from "@cerberauth/ui";
 
 const meta: Meta<typeof Tabs> = {
@@ -60,4 +61,15 @@ export const Default: Story = {
       </TabsContent>
     </Tabs>
   ),
+  play: async ({ canvas, userEvent }) => {
+    const accountTab = canvas.getByRole("tab", { name: "Account" });
+    const passwordTab = canvas.getByRole("tab", { name: "Password" });
+    await expect(accountTab).toHaveAttribute("aria-selected", "true");
+    await expect(canvas.getByText("Save changes")).toBeVisible();
+
+    await userEvent.click(passwordTab);
+    await expect(passwordTab).toHaveAttribute("aria-selected", "true");
+    await expect(accountTab).toHaveAttribute("aria-selected", "false");
+    await expect(canvas.getByText("Save password")).toBeVisible();
+  },
 };

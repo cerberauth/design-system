@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, screen, within } from "storybook/test";
 import {
   AlertDialog,
   AlertDialogTrigger,
@@ -42,4 +43,18 @@ export const Default: Story = {
       </AlertDialogContent>
     </AlertDialog>
   ),
+  play: async ({ canvas, userEvent }) => {
+    await expect(screen.queryByRole("alertdialog")).not.toBeInTheDocument();
+
+    await userEvent.click(
+      canvas.getByRole("button", { name: "Delete account" }),
+    );
+    const dialog = await screen.findByRole("alertdialog");
+    await expect(
+      within(dialog).getByText("Are you absolutely sure?"),
+    ).toBeInTheDocument();
+
+    await userEvent.click(within(dialog).getByRole("button", { name: "Cancel" }));
+    await expect(screen.queryByRole("alertdialog")).not.toBeInTheDocument();
+  },
 };

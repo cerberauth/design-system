@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, fireEvent, fn } from "storybook/test";
 import { Button } from "@cerberauth/ui";
 
 const meta: Meta<typeof Button> = {
@@ -34,6 +35,7 @@ const meta: Meta<typeof Button> = {
     variant: "default",
     size: "default",
     disabled: false,
+    onClick: fn(),
   },
 };
 
@@ -42,7 +44,13 @@ type Story = StoryObj<typeof Button>;
 
 // ─── Individual Stories ───────────────────────────────────────────────────────
 
-export const Default: Story = {};
+export const Default: Story = {
+  play: async ({ canvas, userEvent, args }) => {
+    const button = canvas.getByRole("button", { name: "Button" });
+    await userEvent.click(button);
+    await expect(args.onClick).toHaveBeenCalledOnce();
+  },
+};
 
 export const Outline: Story = {
   args: { variant: "outline" },
@@ -67,6 +75,15 @@ export const Large: Story = {
 
 export const Disabled: Story = {
   args: { disabled: true },
+  play: async ({ canvas, args }) => {
+    const button = canvas.getByRole("button", { name: "Button" });
+    await expect(button).toBeDisabled();
+    // userEvent.click refuses to interact with pointer-events:none elements,
+    // so dispatch the event directly to confirm the native `disabled`
+    // attribute itself blocks the handler.
+    await fireEvent.click(button);
+    await expect(args.onClick).not.toHaveBeenCalled();
+  },
 };
 
 // ─── All Variants ─────────────────────────────────────────────────────────────

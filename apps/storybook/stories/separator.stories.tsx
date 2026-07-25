@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import { Separator } from "@cerberauth/ui";
 
 const meta: Meta<typeof Separator> = {
@@ -30,6 +31,12 @@ export const Horizontal: Story = {
       </div>
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const separators = canvasElement.querySelectorAll('[data-slot="separator"]');
+    await expect(separators.length).toBe(3);
+    await expect(separators[0]).toHaveAttribute("data-orientation", "horizontal");
+    await expect(separators[1]).toHaveAttribute("data-orientation", "vertical");
+  },
 };
 
 export const Vertical: Story = {

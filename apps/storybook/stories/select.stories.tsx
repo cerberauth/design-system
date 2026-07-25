@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, screen } from "storybook/test";
 import {
   Select,
   SelectTrigger,
@@ -23,7 +24,7 @@ type Story = StoryObj;
 export const Default: Story = {
   render: () => (
     <Select>
-      <SelectTrigger className="w-48">
+      <SelectTrigger className="w-48" aria-label="Select a fruit">
         <SelectValue placeholder="Select a fruit" />
       </SelectTrigger>
       <SelectContent>
@@ -35,13 +36,24 @@ export const Default: Story = {
       </SelectContent>
     </Select>
   ),
+  play: async ({ canvas, userEvent }) => {
+    const trigger = canvas.getByRole("combobox", { name: "Select a fruit" });
+    await userEvent.click(trigger);
+
+    const option = await screen.findByRole("option", { name: "Banana" });
+    await userEvent.click(option);
+
+    // The trigger's visible value updates and the listbox closes.
+    await expect(canvas.getByText("Banana")).toBeInTheDocument();
+    await expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+  },
 };
 
 export const WithGroups: Story = {
   name: "With groups",
   render: () => (
     <Select>
-      <SelectTrigger className="w-56">
+      <SelectTrigger className="w-56" aria-label="Select a timezone">
         <SelectValue placeholder="Select a timezone" />
       </SelectTrigger>
       <SelectContent>
@@ -85,7 +97,7 @@ export const WithLabel: Story = {
 export const Disabled: Story = {
   render: () => (
     <Select disabled>
-      <SelectTrigger className="w-48">
+      <SelectTrigger className="w-48" aria-label="Disabled select">
         <SelectValue placeholder="Disabled" />
       </SelectTrigger>
       <SelectContent>

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, screen } from "storybook/test";
 import {
   Tooltip,
   TooltipTrigger,
@@ -34,6 +35,17 @@ export const Default: Story = {
       </TooltipContent>
     </Tooltip>
   ),
+  play: async ({ canvas, userEvent }) => {
+    await expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
+
+    await userEvent.hover(canvas.getByRole("button", { name: "Hover me" }));
+    await expect(await screen.findByRole("tooltip")).toHaveTextContent(
+      "Add to library",
+    );
+
+    await userEvent.unhover(canvas.getByRole("button", { name: "Hover me" }));
+    await expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
+  },
 };
 
 export const Positions: Story = {

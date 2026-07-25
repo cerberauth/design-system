@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, screen } from "storybook/test";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -56,6 +57,18 @@ export const Default: Story = {
       </DropdownMenuContent>
     </DropdownMenu>
   ),
+  play: async ({ canvas, userEvent }) => {
+    await expect(screen.queryByRole("menu")).not.toBeInTheDocument();
+
+    await userEvent.click(canvas.getByRole("button", { name: "Open menu" }));
+    await expect(await screen.findByRole("menu")).toBeInTheDocument();
+    const profileItem = screen.getByRole("menuitem", { name: /Profile/ });
+    await expect(profileItem).toBeInTheDocument();
+
+    // Selecting an item closes the menu.
+    await userEvent.click(profileItem);
+    await expect(screen.queryByRole("menu")).not.toBeInTheDocument();
+  },
 };
 
 export const WithCheckboxes: Story = {
@@ -74,6 +87,21 @@ export const WithCheckboxes: Story = {
       </DropdownMenuContent>
     </DropdownMenu>
   ),
+  play: async ({ canvas, userEvent }) => {
+    await userEvent.click(canvas.getByRole("button", { name: "View options" }));
+    const toolbar = await screen.findByRole("menuitemcheckbox", {
+      name: "Show toolbar",
+    });
+    const statusBar = screen.getByRole("menuitemcheckbox", {
+      name: "Show status bar",
+    });
+    await expect(toolbar).toHaveAttribute("aria-checked", "true");
+    await expect(statusBar).toHaveAttribute("aria-checked", "false");
+
+    // Close the menu so the story doesn't end mid-interaction.
+    await userEvent.keyboard("{Escape}");
+    await expect(screen.queryByRole("menu")).not.toBeInTheDocument();
+  },
 };
 
 export const WithRadioGroup: Story = {

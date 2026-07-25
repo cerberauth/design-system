@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import {
   NavigationMenu,
   NavigationMenuList,
@@ -74,4 +75,20 @@ export const Default: Story = {
       </NavigationMenuList>
     </NavigationMenu>
   ),
+  play: async ({ canvas, userEvent }) => {
+    const trigger = canvas.getByRole("button", { name: "Getting started" });
+    await expect(trigger).toHaveAttribute("aria-expanded", "false");
+    await expect(canvas.queryByText("Introduction")).not.toBeInTheDocument();
+
+    await userEvent.click(trigger);
+    await expect(trigger).toHaveAttribute("aria-expanded", "true");
+    await expect(await canvas.findByText("Introduction")).toBeVisible();
+
+    // Close the panel so the story doesn't end mid-interaction. (Escape
+    // triggers Radix's dismiss-and-return-focus path, which leaves a stray
+    // focus-guard element behind — clicking the trigger again is the
+    // regular toggle path and closes cleanly.)
+    await userEvent.click(trigger);
+    await expect(trigger).toHaveAttribute("aria-expanded", "false");
+  },
 };

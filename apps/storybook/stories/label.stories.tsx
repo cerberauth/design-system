@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import { Label, Input, Checkbox } from "@cerberauth/ui";
 
 const meta: Meta<typeof Label> = {
@@ -13,6 +14,11 @@ type Story = StoryObj<typeof Label>;
 
 export const Default: Story = {
   render: () => <Label htmlFor="email">Email address</Label>,
+  play: async ({ canvas }) => {
+    const label = canvas.getByText("Email address");
+    await expect(label).toBeInTheDocument();
+    await expect(label).toHaveAttribute("for", "email");
+  },
 };
 
 export const WithInput: Story = {
@@ -23,6 +29,10 @@ export const WithInput: Story = {
       <Input id="email-field" type="email" placeholder="you@example.com" />
     </div>
   ),
+  play: async ({ canvas }) => {
+    // Associated via htmlFor/id, so the input must be reachable by its label text.
+    await expect(canvas.getByLabelText("Email")).toBeInTheDocument();
+  },
 };
 
 export const WithCheckbox: Story = {

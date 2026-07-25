@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import {
   SidebarProvider,
   SidebarInset,
@@ -106,13 +107,31 @@ export const Default: Story = {
           <SidebarTrigger />
           <span className="text-sm font-medium">Dashboard</span>
         </header>
-        <main className="p-6">
+        <div className="p-6">
           <p className="text-muted-foreground text-sm">
             Main content area. Toggle the sidebar with the button above or press{" "}
             <kbd className="rounded border px-1 font-mono text-xs">⌘B</kbd>.
           </p>
-        </main>
+        </div>
       </SidebarInset>
     </SidebarProvider>
   ),
+  play: async ({ canvas, userEvent, canvasElement }) => {
+    await expect(
+      canvas.getByRole("link", { name: /Dashboard/ }),
+    ).toBeInTheDocument();
+
+    const sidebar = canvasElement.querySelector('[data-slot="sidebar"]');
+    await expect(sidebar).toHaveAttribute("data-state", "expanded");
+
+    await userEvent.click(
+      canvas.getByRole("button", { name: "Toggle Sidebar" }),
+    );
+    await expect(sidebar).toHaveAttribute("data-state", "collapsed");
+
+    await userEvent.click(
+      canvas.getByRole("button", { name: "Toggle Sidebar" }),
+    );
+    await expect(sidebar).toHaveAttribute("data-state", "expanded");
+  },
 };

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import { Textarea, Label } from "@cerberauth/ui";
 
 const meta: Meta<typeof Textarea> = {
@@ -15,6 +16,11 @@ export const Default: Story = {
   render: () => (
     <Textarea placeholder="Type your message here." className="w-80" />
   ),
+  play: async ({ canvas, userEvent }) => {
+    const textarea = canvas.getByPlaceholderText("Type your message here.");
+    await userEvent.type(textarea, "Hello there");
+    await expect(textarea).toHaveValue("Hello there");
+  },
 };
 
 export const WithLabel: Story = {

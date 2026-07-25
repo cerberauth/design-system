@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import {
   Card,
   CardHeader,
@@ -50,6 +51,15 @@ export const Default: Story = {
       </CardFooter>
     </Card>
   ),
+  play: async ({ canvas }) => {
+    await expect(canvas.getByText("Card Title")).toBeInTheDocument();
+    await expect(
+      canvas.getByRole("button", { name: "Action" }),
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByRole("button", { name: "Cancel" }),
+    ).toBeInTheDocument();
+  },
 };
 
 // ─── Content Only ─────────────────────────────────────────────────────────────

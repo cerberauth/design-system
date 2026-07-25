@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import { Progress } from "@cerberauth/ui";
 
 const meta: Meta<typeof Progress> = {
@@ -17,6 +18,11 @@ type Story = StoryObj<typeof Progress>;
 
 export const Default: Story = {
   args: { value: 60, className: "w-80" },
+  play: async ({ canvas }) => {
+    const bar = canvas.getByRole("progressbar");
+    await expect(bar).toBeInTheDocument();
+    await expect(bar).toHaveAttribute("aria-valuenow", "60");
+  },
 };
 
 export const AllStates: Story = {

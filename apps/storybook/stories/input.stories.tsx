@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import { Input } from "@cerberauth/ui";
 
 const meta: Meta<typeof Input> = {
@@ -40,7 +41,13 @@ type Story = StoryObj<typeof Input>;
 
 // ─── Individual Stories ───────────────────────────────────────────────────────
 
-export const Default: Story = {};
+export const Default: Story = {
+  play: async ({ canvas, userEvent }) => {
+    const input = canvas.getByPlaceholderText("Enter text...");
+    await userEvent.type(input, "Hello world");
+    await expect(input).toHaveValue("Hello world");
+  },
+};
 
 export const WithLabel: Story = {
   args: {
@@ -65,6 +72,9 @@ export const Disabled: Story = {
     placeholder: "johndoe",
     disabled: true,
   },
+  play: async ({ canvas }) => {
+    await expect(canvas.getByPlaceholderText("johndoe")).toBeDisabled();
+  },
 };
 
 export const Password: Story = {
@@ -83,9 +93,14 @@ export const AllStates: Story = {
   render: () => (
     <div className="flex flex-col gap-6 p-4 w-80">
       <Input label="Default" placeholder="Enter text..." />
-      <Input label="With value" defaultValue="hello@cerberauth.com" />
+      <Input
+        label="With value"
+        placeholder="hello@cerberauth.com"
+        defaultValue="hello@cerberauth.com"
+      />
       <Input
         label="With error"
+        placeholder="you@example.com"
         defaultValue="not-an-email"
         error="Please enter a valid email."
         type="email"
@@ -93,4 +108,10 @@ export const AllStates: Story = {
       <Input label="Disabled" placeholder="Cannot edit" disabled />
     </div>
   ),
+  play: async ({ canvas }) => {
+    await expect(
+      canvas.getByPlaceholderText("hello@cerberauth.com"),
+    ).toHaveValue("hello@cerberauth.com");
+    await expect(canvas.getByPlaceholderText("Cannot edit")).toBeDisabled();
+  },
 };

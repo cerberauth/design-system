@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import {
   Toast,
   ToastAction,
@@ -42,6 +43,15 @@ export const Default: Story = {
       </Toast>
     </ToastDemo>
   ),
+  play: async ({ canvas }) => {
+    await expect(canvas.getByText("Scheduled")).toBeInTheDocument();
+    await expect(
+      canvas.getByText("Your event has been scheduled for tomorrow."),
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByRole("button", { name: "Close" }),
+    ).toBeInTheDocument();
+  },
 };
 
 export const WithAction: Story = {
@@ -58,6 +68,11 @@ export const WithAction: Story = {
       </Toast>
     </ToastDemo>
   ),
+  play: async ({ canvas }) => {
+    await expect(
+      canvas.getByRole("button", { name: "Try again" }),
+    ).toBeInTheDocument();
+  },
 };
 
 export const Destructive: Story = {

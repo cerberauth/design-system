@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import { Badge } from "@cerberauth/ui";
 
 const meta: Meta<typeof Badge> = {
@@ -27,7 +28,13 @@ type Story = StoryObj<typeof Badge>;
 
 // ─── Individual Stories ───────────────────────────────────────────────────────
 
-export const Default: Story = {};
+export const Default: Story = {
+  play: async ({ canvas }) => {
+    const badge = canvas.getByText("Badge");
+    await expect(badge).toBeInTheDocument();
+    await expect(badge).toHaveAttribute("data-slot", "badge");
+  },
+};
 
 export const Secondary: Story = {
   args: { variant: "secondary" },

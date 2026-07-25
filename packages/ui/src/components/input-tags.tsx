@@ -54,6 +54,7 @@ const InputTags = React.forwardRef<HTMLInputElement, InputTagsProps>(
               variant="ghost"
               size="icon"
               className="ml-2 h-3 w-3"
+              aria-label={`Remove ${item}`}
               onClick={() => {
                 onChange(value.filter((i) => i !== item))
               }}

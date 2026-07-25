@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import { ScrollArea, ScrollBar, Separator } from "@cerberauth/ui";
 
 const tags = Array.from({ length: 50 }, (_, i) => `Tag ${i + 1}`);
@@ -35,6 +36,17 @@ export const Vertical: Story = {
       </div>
     </ScrollArea>
   ),
+  play: async ({ canvas, canvasElement, userEvent }) => {
+    await expect(canvas.getByText("Tag 1")).toBeInTheDocument();
+    await expect(canvas.getByText("Tag 50")).toBeInTheDocument();
+
+    // Viewport must be keyboard-focusable so it can be scrolled without a mouse.
+    const viewport = canvasElement.querySelector(
+      '[data-slot="scroll-area-viewport"]',
+    ) as HTMLElement;
+    await userEvent.tab();
+    await expect(viewport).toHaveFocus();
+  },
 };
 
 export const Horizontal: Story = {

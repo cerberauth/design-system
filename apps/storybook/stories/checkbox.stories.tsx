@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import { Checkbox } from "@cerberauth/ui";
 import { Label } from "@cerberauth/ui";
 
@@ -13,7 +14,17 @@ export default meta;
 type Story = StoryObj<typeof Checkbox>;
 
 export const Default: Story = {
-  render: () => <Checkbox id="default" />,
+  render: () => <Checkbox id="default" aria-label="Default checkbox" />,
+  play: async ({ canvas, userEvent }) => {
+    const checkbox = canvas.getByRole("checkbox");
+    await expect(checkbox).toHaveAttribute("aria-checked", "false");
+
+    await userEvent.click(checkbox);
+    await expect(checkbox).toHaveAttribute("aria-checked", "true");
+
+    await userEvent.click(checkbox);
+    await expect(checkbox).toHaveAttribute("aria-checked", "false");
+  },
 };
 
 export const WithLabel: Story = {
@@ -32,6 +43,12 @@ export const Checked: Story = {
       <Label htmlFor="checked">Notifications enabled</Label>
     </div>
   ),
+  play: async ({ canvas }) => {
+    const checkbox = canvas.getByRole("checkbox", {
+      name: "Notifications enabled",
+    });
+    await expect(checkbox).toHaveAttribute("aria-checked", "true");
+  },
 };
 
 export const Disabled: Story = {

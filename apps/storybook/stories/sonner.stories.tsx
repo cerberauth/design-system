@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Toaster as Sonner } from "sonner";
+import { expect, screen } from "storybook/test";
 import { toast } from "sonner";
-import { Button } from "@cerberauth/ui";
+import { Button, Sonner } from "@cerberauth/ui";
 
 const meta: Meta = {
   title: "Components/Sonner",
@@ -26,6 +26,13 @@ export const Default: Story = {
       Show toast
     </Button>
   ),
+  play: async ({ canvas, userEvent }) => {
+    // Sonner renders toasts in a portal, outside canvasElement.
+    await userEvent.click(canvas.getByRole("button", { name: "Show toast" }));
+    await expect(
+      await screen.findByText("Event has been created"),
+    ).toBeInTheDocument();
+  },
 };
 
 export const Success: Story = {
@@ -34,6 +41,12 @@ export const Success: Story = {
       Success
     </Button>
   ),
+  play: async ({ canvas, userEvent }) => {
+    await userEvent.click(canvas.getByRole("button", { name: "Success" }));
+    await expect(
+      await screen.findByText("Profile updated successfully!"),
+    ).toBeInTheDocument();
+  },
 };
 
 export const Error: Story = {
