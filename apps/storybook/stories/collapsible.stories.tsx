@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent, Button } from "@cerberauth/ui";
 import { ChevronsUpDown } from "lucide-react";
 
@@ -36,4 +37,19 @@ export const Default: Story = {
       </CollapsibleContent>
     </Collapsible>
   ),
+  play: async ({ canvas, userEvent }) => {
+    const trigger = canvas.getByRole("button", { name: "Toggle" });
+    // Radix unmounts CollapsibleContent's children while closed.
+    await expect(
+      canvas.queryByText("@radix-ui/react-dialog"),
+    ).not.toBeInTheDocument();
+
+    await userEvent.click(trigger);
+    await expect(canvas.getByText("@radix-ui/react-dialog")).toBeVisible();
+
+    await userEvent.click(trigger);
+    await expect(
+      canvas.queryByText("@radix-ui/react-dialog"),
+    ).not.toBeInTheDocument();
+  },
 };

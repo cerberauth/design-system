@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -36,6 +37,13 @@ export const Default: Story = {
       </BreadcrumbList>
     </Breadcrumb>
   ),
+  play: async ({ canvas }) => {
+    await expect(
+      canvas.getByRole("link", { name: "Home" }),
+    ).toBeInTheDocument();
+    const current = canvas.getByText("Profile");
+    await expect(current).toHaveAttribute("aria-current", "page");
+  },
 };
 
 export const WithEllipsis: Story = {

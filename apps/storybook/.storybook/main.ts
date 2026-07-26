@@ -6,6 +6,7 @@ const config: StorybookConfig = {
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-a11y",
+    "@storybook/addon-vitest"
   ],
 
   framework: {
@@ -20,6 +21,10 @@ const config: StorybookConfig = {
   async viteFinal(config) {
     const { default: tailwindcss } = await import("@tailwindcss/vite");
     config.plugins = [...(config.plugins ?? []), tailwindcss()];
+    config.resolve = {
+      ...config.resolve,
+      dedupe: [...(config.resolve?.dedupe ?? []), "react", "react-dom"],
+    };
     return config;
   },
 };

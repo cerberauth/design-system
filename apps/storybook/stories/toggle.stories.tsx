@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import { Toggle } from "@cerberauth/ui";
 import { Bold, Italic, Underline } from "lucide-react";
 
@@ -18,6 +19,16 @@ export const Default: Story = {
       <Bold className="size-4" />
     </Toggle>
   ),
+  play: async ({ canvas, userEvent }) => {
+    const toggle = canvas.getByRole("button", { name: "Toggle bold" });
+    await expect(toggle).toHaveAttribute("aria-pressed", "false");
+
+    await userEvent.click(toggle);
+    await expect(toggle).toHaveAttribute("aria-pressed", "true");
+
+    await userEvent.click(toggle);
+    await expect(toggle).toHaveAttribute("aria-pressed", "false");
+  },
 };
 
 export const WithText: Story = {

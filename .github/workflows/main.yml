@@ -62,7 +62,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
       - name: Setup pnpm + Turborepo 🏗
@@ -70,5 +69,23 @@ jobs:
 
       - name: Build Storybook
         run: pnpm turbo run build-storybook
+        env:
+          TURBO_TELEMETRY_DISABLED: 1
+
+  storybook-tests:
+    name: Storybook Tests
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Setup pnpm + Turborepo 🏗
+        uses: cerberauth/ci/actions/pnpm-turbo-setup@main
+
+      - name: Install Playwright Chromium
+        run: pnpm --filter @cerberauth/storybook exec playwright install --with-deps chromium
+
+      - name: Run Storybook tests
+        run: pnpm turbo run test-storybook
         env:
           TURBO_TELEMETRY_DISABLED: 1

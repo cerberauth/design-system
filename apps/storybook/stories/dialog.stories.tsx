@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, screen, within } from "storybook/test";
 import {
   Dialog,
   DialogTrigger,
@@ -54,4 +55,18 @@ export const Default: Story = {
       </DialogContent>
     </Dialog>
   ),
+  play: async ({ canvas, userEvent }) => {
+    // DialogContent renders in a Radix Portal (outside canvasElement), so
+    // once opened it must be queried via the document-wide `screen`.
+    await expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+
+    await userEvent.click(canvas.getByRole("button", { name: "Open dialog" }));
+    const dialog = await screen.findByRole("dialog");
+    await expect(
+      within(dialog).getByText("Edit profile"),
+    ).toBeInTheDocument();
+
+    await userEvent.click(within(dialog).getByRole("button", { name: "Cancel" }));
+    await expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  },
 };

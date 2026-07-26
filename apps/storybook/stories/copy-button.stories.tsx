@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import { CopyButton, TooltipProvider } from "@cerberauth/ui";
 
 const meta: Meta<typeof CopyButton> = {
@@ -22,6 +23,17 @@ export const Default: Story = {
   render: () => (
     <CopyButton value="npm install @cerberauth/ui" label="Copy install command" />
   ),
+  play: async ({ canvas, userEvent }) => {
+    const button = canvas.getByRole("button", {
+      name: "Copy install command",
+    });
+    // The test runner doesn't grant clipboard permissions, so this only
+    // verifies the click is handled without throwing and the button
+    // remains in the document — clipboard-write success is exercised by
+    // the browser, not by this environment.
+    await userEvent.click(button);
+    await expect(button).toBeInTheDocument();
+  },
 };
 
 export const InContext: Story = {

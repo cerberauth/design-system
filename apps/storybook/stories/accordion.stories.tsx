@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import {
   Accordion,
   AccordionItem,
@@ -42,6 +43,22 @@ export const Default: Story = {
       </AccordionItem>
     </Accordion>
   ),
+  play: async ({ canvas, userEvent }) => {
+    const trigger = canvas.getByRole("button", { name: "What is CerberAuth?" });
+    const contentMatch = /CerberAuth is an open-source authentication platform/;
+    await expect(trigger).toHaveAttribute("aria-expanded", "false");
+    // Radix unmounts AccordionContent's children while closed.
+    await expect(canvas.queryByText(contentMatch)).not.toBeInTheDocument();
+
+    await userEvent.click(trigger);
+    await expect(trigger).toHaveAttribute("aria-expanded", "true");
+    await expect(canvas.getByText(contentMatch)).toBeVisible();
+
+    // type="single collapsible": clicking the open trigger again closes it.
+    await userEvent.click(trigger);
+    await expect(trigger).toHaveAttribute("aria-expanded", "false");
+    await expect(canvas.queryByText(contentMatch)).not.toBeInTheDocument();
+  },
 };
 
 export const Multiple: Story = {

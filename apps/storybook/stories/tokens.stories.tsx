@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 
 // ─── Color Swatch ─────────────────────────────────────────────────────────────
 
@@ -219,4 +220,19 @@ export default meta;
 export const AllTokens: StoryObj = {
   name: "All Tokens",
   render: () => <TokenPalette />,
+  play: async ({ canvas }) => {
+    await expect(
+      canvas.getByRole("heading", { name: "Design Tokens", level: 1 }),
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByRole("heading", { name: "Color Tokens" }),
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByRole("heading", { name: "Spacing Tokens" }),
+    ).toBeInTheDocument();
+    await expect(
+      canvas.getByRole("heading", { name: "Border Radius Tokens" }),
+    ).toBeInTheDocument();
+    await expect(canvas.getByText("--token-primary")).toBeInTheDocument();
+  },
 };

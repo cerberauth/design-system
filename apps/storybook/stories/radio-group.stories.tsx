@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import { RadioGroup, RadioGroupItem, Label } from "@cerberauth/ui";
 
 const meta: Meta<typeof RadioGroup> = {
@@ -28,6 +29,16 @@ export const Default: Story = {
       </div>
     </RadioGroup>
   ),
+  play: async ({ canvas, userEvent }) => {
+    const option1 = canvas.getByRole("radio", { name: "Option 1" });
+    const option2 = canvas.getByRole("radio", { name: "Option 2" });
+    await expect(option1).toHaveAttribute("aria-checked", "true");
+    await expect(option2).toHaveAttribute("aria-checked", "false");
+
+    await userEvent.click(option2);
+    await expect(option2).toHaveAttribute("aria-checked", "true");
+    await expect(option1).toHaveAttribute("aria-checked", "false");
+  },
 };
 
 export const Horizontal: Story = {

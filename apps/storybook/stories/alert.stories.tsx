@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import { Alert, AlertTitle, AlertDescription } from "@cerberauth/ui";
 import { Terminal, AlertCircle } from "lucide-react";
 
@@ -28,6 +29,13 @@ export const Default: Story = {
       </AlertDescription>
     </Alert>
   ),
+  play: async ({ canvas }) => {
+    await expect(canvas.getByRole("alert")).toBeInTheDocument();
+    await expect(canvas.getByText("Heads up!")).toBeInTheDocument();
+    await expect(
+      canvas.getByText("You can add components to your app using the CLI."),
+    ).toBeInTheDocument();
+  },
 };
 
 export const Destructive: Story = {

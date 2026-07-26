@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import { Avatar, AvatarImage, AvatarFallback } from "@cerberauth/ui";
 
 const meta: Meta<typeof Avatar> = {
@@ -18,6 +19,13 @@ export const WithImage: Story = {
       <AvatarFallback>CN</AvatarFallback>
     </Avatar>
   ),
+  play: async ({ canvasElement }) => {
+    // Fallback renders immediately and only hides once the remote image
+    // finishes loading, so assert on the always-present avatar root instead
+    // of depending on network access inside the test environment.
+    const root = canvasElement.querySelector('[data-slot="avatar"]');
+    await expect(root).toBeInTheDocument();
+  },
 };
 
 export const WithFallback: Story = {

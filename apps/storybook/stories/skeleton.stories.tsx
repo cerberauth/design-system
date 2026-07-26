@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import { Skeleton } from "@cerberauth/ui";
 
 const meta: Meta<typeof Skeleton> = {
@@ -13,6 +14,11 @@ type Story = StoryObj<typeof Skeleton>;
 
 export const Default: Story = {
   render: () => <Skeleton className="h-4 w-48" />,
+  play: async ({ canvasElement }) => {
+    const skeleton = canvasElement.querySelector('[data-slot="skeleton"]');
+    await expect(skeleton).toBeInTheDocument();
+    await expect(skeleton).toHaveClass("animate-pulse");
+  },
 };
 
 export const CardSkeleton: Story = {

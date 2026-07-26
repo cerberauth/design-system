@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, screen } from "storybook/test";
 import {
   Menubar,
   MenubarMenu,
@@ -90,4 +91,12 @@ export const Default: Story = {
       </MenubarMenu>
     </Menubar>
   ),
+  play: async ({ canvas, userEvent }) => {
+    await userEvent.click(canvas.getByRole("menuitem", { name: "File" }));
+    const newTab = await screen.findByRole("menuitem", { name: /New Tab/ });
+    await expect(newTab).toBeInTheDocument();
+    await expect(
+      screen.getByRole("menuitem", { name: "New Incognito Window" }),
+    ).toHaveAttribute("aria-disabled", "true");
+  },
 };

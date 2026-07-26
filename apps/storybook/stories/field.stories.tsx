@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import {
   Field,
   FieldLabel,
@@ -28,6 +29,12 @@ export const Default: Story = {
       <FieldDescription>We&apos;ll never share your email.</FieldDescription>
     </Field>
   ),
+  play: async ({ canvas }) => {
+    await expect(canvas.getByLabelText("Email address")).toBeInTheDocument();
+    await expect(
+      canvas.getByText("We'll never share your email."),
+    ).toBeInTheDocument();
+  },
 };
 
 export const WithError: Story = {
@@ -39,6 +46,13 @@ export const WithError: Story = {
       <FieldError>Username must be at least 3 characters.</FieldError>
     </Field>
   ),
+  play: async ({ canvas }) => {
+    const input = canvas.getByLabelText("Username");
+    await expect(input).toHaveAttribute("aria-invalid", "true");
+    await expect(
+      canvas.getByText("Username must be at least 3 characters."),
+    ).toBeInTheDocument();
+  },
 };
 
 export const FieldSetExample: Story = {
@@ -83,4 +97,12 @@ export const Horizontal: Story = {
       </FieldGroup>
     </div>
   ),
+  play: async ({ canvas, userEvent }) => {
+    const notifications = canvas.getByRole("checkbox", {
+      name: /Email notifications/,
+    });
+    await expect(notifications).toHaveAttribute("aria-checked", "false");
+    await userEvent.click(notifications);
+    await expect(notifications).toHaveAttribute("aria-checked", "true");
+  },
 };

@@ -23,7 +23,7 @@ const withTheme: Decorator = (Story, context) => {
   if (typeof document !== "undefined") {
     document.documentElement.setAttribute(
       "data-theme",
-      theme === "dark" ? "dark" : ""
+      theme === "dark" ? "dark" : "",
     );
     document.documentElement.style.backgroundColor =
       theme === "dark" ? "var(--token-bg)" : "var(--token-bg)";
@@ -34,13 +34,22 @@ const withTheme: Decorator = (Story, context) => {
 const preview: Preview = {
   parameters: {
     layout: "centered",
+
     controls: {
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/i,
       },
     },
+
     backgrounds: { disable: true },
+
+    a11y: {
+      // 'todo' - show a11y violations in the test UI only
+      // 'error' - fail CI on a11y violations
+      // 'off' - skip a11y checks entirely
+      test: "error",
+    },
   },
   decorators: [withTheme],
 };

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect, screen, within } from "storybook/test";
 import {
   Sheet,
   SheetTrigger,
@@ -53,6 +54,18 @@ export const Default: Story = {
       </SheetContent>
     </Sheet>
   ),
+  play: async ({ canvas, userEvent }) => {
+    await expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+
+    await userEvent.click(canvas.getByRole("button", { name: "Open sheet" }));
+    const sheet = await screen.findByRole("dialog");
+    await expect(within(sheet).getByText("Edit profile")).toBeInTheDocument();
+
+    await userEvent.click(
+      within(sheet).getByRole("button", { name: "Save changes" }),
+    );
+    await expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  },
 };
 
 export const Sides: Story = {

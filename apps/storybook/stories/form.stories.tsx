@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { expect } from "storybook/test";
 import { useForm } from "react-hook-form";
 import {
   Form,
@@ -73,6 +74,26 @@ function LoginForm() {
 
 export const Login: Story = {
   render: () => <LoginForm />,
+  play: async ({ canvas, userEvent }) => {
+    const submit = canvas.getByRole("button", { name: "Sign in" });
+
+    // Submitting empty required fields surfaces validation messages.
+    await userEvent.click(submit);
+    await expect(canvas.getByText("Email is required")).toBeInTheDocument();
+    await expect(canvas.getByText("Password is required")).toBeInTheDocument();
+
+    // Filling in valid values clears the errors on the next submit.
+    await userEvent.type(
+      canvas.getByPlaceholderText("you@example.com"),
+      "user@example.com",
+    );
+    await userEvent.type(canvas.getByPlaceholderText("••••••••"), "password123");
+    await userEvent.click(submit);
+    await expect(canvas.queryByText("Email is required")).not.toBeInTheDocument();
+    await expect(
+      canvas.queryByText("Password is required"),
+    ).not.toBeInTheDocument();
+  },
 };
 
 function ProfileForm() {
@@ -164,4 +185,23 @@ function ProfileForm() {
 
 export const Profile: Story = {
   render: () => <ProfileForm />,
+  play: async ({ canvas, userEvent }) => {
+    const submit = canvas.getByRole("button", { name: "Save profile" });
+
+    await userEvent.click(submit);
+    await expect(
+      canvas.getByText("Username is required"),
+    ).toBeInTheDocument();
+
+    await userEvent.type(canvas.getByPlaceholderText("johndoe"), "johndoe");
+    await userEvent.click(submit);
+    await expect(
+      canvas.queryByText("Username is required"),
+    ).not.toBeInTheDocument();
+
+    const marketing = canvas.getByRole("checkbox");
+    await expect(marketing).toHaveAttribute("aria-checked", "false");
+    await userEvent.click(marketing);
+    await expect(marketing).toHaveAttribute("aria-checked", "true");
+  },
 };
