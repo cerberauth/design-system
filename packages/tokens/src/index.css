@@ -51,6 +51,12 @@
   --color-success-fg: var(--token-success-fg);
   --color-success-fixed: var(--token-success-fixed);
 
+  /* ─── Colors: Warning ────────────────────────────────────────────────── */
+  --color-warning: var(--token-warning);
+  --color-warning-fg: var(--token-warning-fg);
+  --color-warning-fixed: var(--token-warning-fixed);
+  --color-warning-fixed-fg: var(--token-warning-fixed-fg);
+
   /* ─── Colors: Accent ─────────────────────────────────────────────────── */
   --color-accent: var(--token-accent);
   --color-accent-fg: var(--token-accent-fg);

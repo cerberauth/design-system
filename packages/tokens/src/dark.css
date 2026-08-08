@@ -26,6 +26,12 @@
   --token-destructive: var(--primitive-red-600);
   --token-destructive-fg: var(--primitive-white);
 
+  /* ─── Color: Warning ─────────────────────────────────────────────────────── */
+  /* Fixed surface inverts to a dark warning tint — token-warning/-fg keep their
+     light-theme value (same rule as primary/destructive: contrast holds either way) */
+  --token-warning-fixed: oklch(0.280 0.070 95); /* dark warning surface for banners */
+  --token-warning-fixed-fg: var(--primitive-yellow-100);
+
   /* ─── Color: Accent ─────────────────────────────────────────────────────── */
   --token-accent: var(--primitive-blue-950);
   --token-accent-fg: var(--primitive-blue-200);

@@ -53,6 +53,11 @@
   --primitive-amber-100: oklch(0.930 0.035 75); /* secondary-fixed (badge background) */
   --primitive-amber-700: oklch(0.481 0.134 48); /* ≈ #964900 — secondary brand */
 
+  /* ─── Color: Yellow (warning) ────────────────────────────────────────────── */
+  /* Distinct hue from the amber secondary brand — reserved for warning/caution state */
+  --primitive-yellow-100: oklch(0.973 0.071 95);  /* very light yellow, warning-fixed bg */
+  --primitive-yellow-700: oklch(0.470 0.140 95);  /* dark enough for white text at 4.5:1 */
+
   /* ─── Color: Red ────────────────────────────────────────────────────────── */
   --primitive-red-100: oklch(0.936 0.032 17.72);
   --primitive-red-300: oklch(0.808 0.114 19.57);

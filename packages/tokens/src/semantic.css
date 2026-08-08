@@ -30,6 +30,13 @@
   --token-success-fg: var(--primitive-white);
   --token-success-fixed: var(--primitive-green-100);
 
+  /* ─── Color: Warning ────────────────────────────────────────────────────── */
+  /* Not part of the original scale — added for caution/dev-only banner states */
+  --token-warning: var(--primitive-yellow-700);
+  --token-warning-fg: var(--primitive-white);
+  --token-warning-fixed: var(--primitive-yellow-100);
+  --token-warning-fixed-fg: var(--primitive-yellow-700);
+
   /* ─── Color: Accent (hover / subtle highlight) ──────────────────────────── */
   --token-accent: var(--primitive-blue-50);
   --token-accent-fg: var(--primitive-blue-900);
