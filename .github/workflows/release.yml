@@ -56,7 +56,7 @@ jobs:
         if: steps.changesets.outputs.published == 'true'
         run: |
           for name in $(echo '${{ steps.changesets.outputs.publishedPackages }}' | jq -r '.[].name'); do
-            pnpm --filter "$name" publish --no-git-checks
+            pnpm --filter "$name" publish --no-git-checks --access public
           done
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
