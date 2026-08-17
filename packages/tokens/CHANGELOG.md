@@ -1,5 +1,11 @@
 # @cerberauth/tokens
 
+## 0.3.1
+
+### Patch Changes
+
+- d7f2dba: remove next-theme
+
 ## 0.3.0
 
 ### Minor Changes
